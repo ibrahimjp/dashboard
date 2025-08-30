@@ -13,6 +13,8 @@ const InfoCards = () => {
         const response = await dashboardApiService.getDoctorStats();
         if (response.success) {
           setStats(response.data.stats);
+        } else {
+          setError('Failed to fetch stats');
         }
       } catch (err) {
         setError(err.message);
@@ -22,11 +24,7 @@ const InfoCards = () => {
       }
     };
 
-    if (dashboardApiService.isAuthenticated() && dashboardApiService.isDoctor()) {
-      fetchStats();
-    } else {
-      setIsLoading(false);
-    }
+    fetchStats();
   }, []);
 
   const cards = [
@@ -69,7 +67,7 @@ const InfoCards = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
         </svg>
       ),
-      value: isLoading ? '---' : `₹ ${stats?.monthlyIncome ? (stats.monthlyIncome / 100).toLocaleString() : '0'}`,
+      value: isLoading ? '---' : (stats?.monthlyIncome ? `₹ ${(stats.monthlyIncome / 100).toLocaleString()}` : '₹ 0'),
       label: 'Monthly Earnings',
       color: 'bg-orange-500',
       bgColor: 'bg-orange-50'
@@ -97,8 +95,8 @@ const InfoCards = () => {
               </div>
             </div>
             <div className="text-right">
-            <p className="text-2xl font-bold text-off-white">{card.value}</p>
-            <p className="text-sm text-medium-gray">{card.label}</p>
+              <p className="text-2xl font-bold text-off-white">{card.value}</p>
+              <p className="text-sm text-medium-gray">{card.label}</p>
             </div>
           </div>
         </div>

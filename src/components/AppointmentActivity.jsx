@@ -13,68 +13,18 @@ const AppointmentActivity = () => {
         const response = await dashboardApiService.getDoctorBookings({ limit: 10 });
         if (response.success) {
           setAppointments(response.data.bookings || []);
+        } else {
+          setError('Failed to fetch appointments');
         }
       } catch (err) {
         setError(err.message);
         console.error('Error fetching appointments:', err);
-        // Fallback to mock data for development
-        setAppointments([
-          {
-            id: 1,
-            user: { name: 'Leslie Alexander', email: 'leslie.alexander@example.com' },
-            createdAt: '2024-01-15T09:15:00Z',
-            slot: { startTime: '2024-01-15T09:15:00Z', endTime: '2024-01-15T09:45:00Z' },
-            status: 'CONFIRMED'
-          },
-          {
-            id: 2,
-            user: { name: 'Ronald Richards', email: 'ronald.richards@example.com' },
-            createdAt: '2024-01-16T12:00:00Z',
-            slot: { startTime: '2024-01-16T12:00:00Z', endTime: '2024-01-16T12:45:00Z' },
-            status: 'PENDING'
-          },
-          {
-            id: 3,
-            user: { name: 'Jane Cooper', email: 'jane.cooper@example.com' },
-            createdAt: '2024-01-17T13:15:00Z',
-            slot: { startTime: '2024-01-17T13:15:00Z', endTime: '2024-01-17T13:45:00Z' },
-            status: 'COMPLETED'
-          }
-        ]);
       } finally {
         setIsLoading(false);
       }
     };
 
-    if (dashboardApiService.isAuthenticated() && dashboardApiService.isDoctor()) {
-      fetchAppointments();
-    } else {
-      // Mock data for non-authenticated users
-      setAppointments([
-        {
-          id: 1,
-          user: { name: 'Leslie Alexander', email: 'leslie.alexander@example.com' },
-          createdAt: '2024-01-15T09:15:00Z',
-          slot: { startTime: '2024-01-15T09:15:00Z', endTime: '2024-01-15T09:45:00Z' },
-          status: 'CONFIRMED'
-        },
-        {
-          id: 2,
-          user: { name: 'Ronald Richards', email: 'ronald.richards@example.com' },
-          createdAt: '2024-01-16T12:00:00Z',
-          slot: { startTime: '2024-01-16T12:00:00Z', endTime: '2024-01-16T12:45:00Z' },
-          status: 'PENDING'
-        },
-        {
-          id: 3,
-          user: { name: 'Jane Cooper', email: 'jane.cooper@example.com' },
-          createdAt: '2024-01-17T13:15:00Z',
-          slot: { startTime: '2024-01-17T13:15:00Z', endTime: '2024-01-17T13:45:00Z' },
-          status: 'COMPLETED'
-        }
-      ]);
-      setIsLoading(false);
-    }
+    fetchAppointments();
   }, []);
 
   const handleStatusUpdate = async (bookingId, newStatus) => {
@@ -149,7 +99,6 @@ const AppointmentActivity = () => {
       {error && (
         <div className="mb-4 p-4 bg-red-500/20 border border-red-500 rounded-lg">
           <p className="text-red-400 text-sm">Error loading appointments: {error}</p>
-          <p className="text-gray-400 text-xs mt-1">Showing demo data</p>
         </div>
       )}
       

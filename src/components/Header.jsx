@@ -1,6 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import dashboardApiService from '../services/dashboardApiService';
 
 const Header = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = dashboardApiService.getCurrentUserFromStorage();
+        if (userData) {
+          setUser(userData);
+        } else {
+          // Try to fetch from API if not in storage
+          const response = await dashboardApiService.getCurrentUserProfile();
+          if (response.success) {
+            setUser(response.data.user);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <div className="flex-1 bg-dark-bg border-b border-light-black">
       <div className="flex items-center justify-between px-8 py-6">
@@ -9,7 +33,7 @@ const Header = () => {
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <svg className="w-5 h-5 text-medium-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 01114 0z" />
               </svg>
             </div>
             <input
@@ -43,8 +67,12 @@ const Header = () => {
               </svg>
             </div>
             <div className="text-right">
-              <p className="text-sm font-semibold text-off-white">Dr. Sarah Wilson</p>
-              <p className="text-xs text-medium-gray">Cardiologist</p>
+              <p className="text-sm font-semibold text-off-white">
+                {user?.doctor?.name || user?.name || 'Dr. Sarah Wilson'}
+              </p>
+              <p className="text-xs text-medium-gray">
+                {user?.doctor?.specialization || 'Cardiologist'}
+              </p>
             </div>
           </div>
         </div>
