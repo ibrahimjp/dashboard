@@ -4,14 +4,14 @@ const IncomeCharts = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 m-6">
       {/* Monthly Income Chart */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-        <h3 className="text-sm font-bold text-gray-600 mb-2">Income in current month</h3>
-        <div className="text-2xl font-bold text-gray-800 mb-6">$ 100,000</div>
+      <div className="bg-light-black rounded-xl shadow-sm border border-zinc-800 p-6">
+      <h3 className="text-sm font-bold text-medium-gray mb-2">Income in current month</h3>
+      <div className="text-2xl font-bold text-off-white mb-6">$ 100,000</div>
         
         {/* Chart Container */}
-        <div className="relative h-64 bg-gray-50 rounded-lg p-4">
+        <div className="relative h-64 bg-dark-bg rounded-lg p-4">
           {/* Y-axis labels */}
-          <div className="absolute left-4 top-4 space-y-8 text-xs font-bold text-gray-500">
+          <div className="absolute left-4 top-4 space-y-8 text-xs font-bold text-medium-gray">
             <div>$100,000</div>
             <div>$80,000</div>
             <div>$60,000</div>
@@ -41,7 +41,7 @@ const IncomeCharts = () => {
                     className="w-6 bg-blue-500 rounded-t" 
                     style={{ height: `${height}%` }}
                   ></div>
-                  <span className="text-xs text-gray-600">{index + 1}</span>
+                  <span className="text-xs text-medium-gray">{index + 1}</span>
                 </div>
               ))}
             </div>
@@ -50,14 +50,14 @@ const IncomeCharts = () => {
       </div>
 
       {/* Weekly Income Chart */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-        <h3 className="text-sm font-bold text-gray-600 mb-2">Income in current week</h3>
-        <div className="text-2xl font-bold text-gray-800 mb-6">$ 25,000</div>
+      <div className="bg-light-black rounded-xl shadow-sm border border-zinc-800 p-6">
+        <h3 className="text-sm font-bold text-medium-gray mb-2">Income in current week</h3>
+        <div className="text-2xl font-bold text-off-white mb-6">$ 25,000</div>
         
         {/* Chart Container */}
-        <div className="relative h-64 bg-gray-50 rounded-lg p-4">
+        <div className="relative h-64 bg-dark-bg rounded-lg p-4">
           {/* Y-axis labels */}
-          <div className="absolute left-4 top-4 space-y-8 text-xs font-bold text-gray-500">
+          <div className="absolute left-4 top-4 space-y-8 text-xs font-bold text-medium-gray">
             <div>$25,000</div>
             <div>$20,000</div>
             <div>$15,000</div>

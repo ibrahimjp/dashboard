@@ -51,7 +51,7 @@ const InfoCards = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
       {cards.map((card, index) => (
-        <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
+        <div key={index} className="bg-light-black rounded-xl shadow-sm border border-zinc-800 p-6 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <div className={`w-12 h-12 ${card.bgColor} rounded-lg flex items-center justify-center`}>
               <div className={`${card.color} text-white`}>
@@ -59,8 +59,8 @@ const InfoCards = () => {
               </div>
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold text-gray-800">{card.value}</p>
-              <p className="text-sm text-gray-600">{card.label}</p>
+            <p className="text-2xl font-bold text-off-white">{card.value}</p>
+            <p className="text-sm text-medium-gray">{card.label}</p>
             </div>
           </div>
         </div>

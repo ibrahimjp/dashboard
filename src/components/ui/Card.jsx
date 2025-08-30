@@ -2,7 +2,7 @@ import React from 'react';
 
 const Card = ({ children, className = '', ...props }) => {
   return (
-    <div className={`bg-white shadow rounded-lg ${className}`} {...props}>
+    <div className={`bg-dark-bg border border-light-black rounded-lg ${className}`} {...props}>
       {children}
     </div>
   );
@@ -26,7 +26,7 @@ const CardBody = ({ children, className = '', ...props }) => {
 
 const CardFooter = ({ children, className = '', ...props }) => {
   return (
-    <div className={`px-4 py-4 sm:px-6 border-t border-gray-200 ${className}`} {...props}>
+    <div className={`px-4 py-4 sm:px-6 border-t border-light-black ${className}`} {...props}>
       {children}
     </div>
   );

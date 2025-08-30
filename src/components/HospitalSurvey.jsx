@@ -2,25 +2,25 @@ import React from 'react';
 
 const HospitalSurvey = () => {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 m-6">
+    <div className="bg-light-black rounded-xl shadow-sm border border-zinc-800 p-6 m-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-gray-800">Hospital Survey</h2>
+      <h2 className="text-xl font-bold text-off-white">Hospital Survey</h2>
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-            <span className="text-sm text-gray-600">2019</span>
+            <span className="text-sm text-medium-gray">2019</span>
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <span className="text-sm text-gray-600">2020</span>
+            <span className="text-sm text-medium-gray">2020</span>
           </div>
         </div>
       </div>
       
       {/* Chart Container */}
-      <div className="relative h-80 bg-gray-50 rounded-lg p-4">
+      <div className="relative h-80 bg-dark-bg rounded-lg p-4">
         {/* Y-axis labels */}
-        <div className="absolute left-4 top-4 space-y-8 text-xs font-bold text-gray-500">
+        <div className="absolute left-4 top-4 space-y-8 text-xs font-bold text-medium-gray">
           <div>300</div>
           <div>250</div>
           <div>200</div>
@@ -51,7 +51,7 @@ const HospitalSurvey = () => {
                 <div className="w-8 bg-blue-500 rounded-t" style={{ height: '60%' }}></div>
                 <div className="w-8 bg-green-500 rounded-t" style={{ height: '80%' }}></div>
               </div>
-              <span className="text-xs text-gray-600">Jan</span>
+              <span className="text-xs text-medium-gray">Jan</span>
             </div>
             
             {/* February */}
