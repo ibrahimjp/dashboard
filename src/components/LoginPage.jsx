@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import dashboardApiService from '../services/dashboardApiService';
+import { useAuth } from '../hooks/useAuth';
 
 const LoginPage = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -9,6 +9,7 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const [flipDone, setFlipDone] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -20,12 +21,8 @@ const LoginPage = () => {
     setError('');
 
     try {
-      const response = await dashboardApiService.login(credentials);
-      if (response.success) {
-        navigate('/');
-      } else {
-        setError(response.message || 'Login failed');
-      }
+      await login(credentials);
+      navigate('/');
     } catch (err) {
       setError(err.message || 'Login failed');
     } finally {

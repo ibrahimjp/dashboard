@@ -1,25 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './hooks/useAuth';
 import Layout from './components/Layout';
 import DashboardPage from './DashboardPage';
 import NewPage from './pages/NewPage';
 import AppointmentsPage from './pages/AppointmentsPage';
 import LoginPage from './components/LoginPage';
-import dashboardApiService from './services/dashboardApiService';
 
-function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const checkAuth = () => {
-      const authenticated = dashboardApiService.isAuthenticated();
-      setIsAuthenticated(authenticated);
-      setIsLoading(false);
-    };
-
-    checkAuth();
-  }, []);
+function AppContent() {
+  const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
     return (
@@ -55,6 +44,14 @@ function App() {
         />
       </Routes>
     </Router>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import dashboardApiService from '../services/dashboardApiService';
+import UserProfile from './UserProfile/UserProfile';
 
 const Header = () => {
   const [user, setUser] = useState(null);
@@ -60,21 +61,7 @@ const Header = () => {
           </div>
 
           {/* User Profile */}
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-primary-green rounded-full flex items-center justify-center">
-              <svg className="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <div className="text-right">
-              <p className="text-sm font-semibold text-off-white">
-                {user?.doctor?.name || user?.name || 'Dr. Sarah Wilson'}
-              </p>
-              <p className="text-xs text-medium-gray">
-                {user?.doctor?.specialization || 'Cardiologist'}
-              </p>
-            </div>
-          </div>
+          <UserProfile />
         </div>
       </div>
     </div>
