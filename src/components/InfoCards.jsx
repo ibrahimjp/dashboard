@@ -2,30 +2,37 @@ import React, { useState, useEffect } from 'react';
 import dashboardApiService from '../services/dashboardApiService';
 
 const InfoCards = () => {
-  const [stats, setStats] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Static data for development - bypassing backend API calls
+  const [stats, setStats] = useState({
+    totalBookings: 124,
+    pendingBookings: 8,
+    completedBookings: 98,
+    monthlyIncome: 45000 // in cents
+  });
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        setIsLoading(true);
-        const response = await dashboardApiService.getDoctorStats();
-        if (response.success) {
-          setStats(response.data.stats);
-        } else {
-          setError('Failed to fetch stats');
-        }
-      } catch (err) {
-        setError(err.message);
-        console.error('Error fetching dashboard stats:', err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  // Commented out API call for development
+  // useEffect(() => {
+  //   const fetchStats = async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       const response = await dashboardApiService.getDoctorStats();
+  //       if (response.success) {
+  //         setStats(response.data.stats);
+  //       } else {
+  //         setError('Failed to fetch stats');
+  //       }
+  //     } catch (err) {
+  //       setError(err.message);
+  //       console.error('Error fetching dashboard stats:', err);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-    fetchStats();
-  }, []);
+  //   fetchStats();
+  // }, []);
 
   const cards = [
     {

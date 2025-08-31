@@ -2,43 +2,73 @@ import React, { useState, useEffect } from 'react';
 import dashboardApiService from '../services/dashboardApiService';
 
 const AppointmentActivity = () => {
-  const [appointments, setAppointments] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // Static data for development - bypassing backend API calls
+  const [appointments, setAppointments] = useState([
+    {
+      id: 1,
+      user: { name: 'John Doe', email: 'john.doe@email.com' },
+      slot: { startTime: '2024-01-15T10:00:00Z', endTime: '2024-01-15T10:30:00Z' },
+      status: 'PENDING',
+      createdAt: '2024-01-15T09:00:00Z'
+    },
+    {
+      id: 2,
+      user: { name: 'Jane Smith', email: 'jane.smith@email.com' },
+      slot: { startTime: '2024-01-15T11:00:00Z', endTime: '2024-01-15T11:30:00Z' },
+      status: 'CONFIRMED',
+      createdAt: '2024-01-15T08:30:00Z'
+    },
+    {
+      id: 3,
+      user: { name: 'Mike Johnson', email: 'mike.johnson@email.com' },
+      slot: { startTime: '2024-01-14T14:00:00Z', endTime: '2024-01-14T14:30:00Z' },
+      status: 'COMPLETED',
+      createdAt: '2024-01-14T13:00:00Z'
+    }
+  ]);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        setIsLoading(true);
-        const response = await dashboardApiService.getDoctorBookings({ limit: 10 });
-        if (response.success) {
-          setAppointments(response.data.bookings || []);
-        } else {
-          setError('Failed to fetch appointments');
-        }
-      } catch (err) {
-        setError(err.message);
-        console.error('Error fetching appointments:', err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  // Commented out API calls for development
+  // useEffect(() => {
+  //   const fetchAppointments = async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       const response = await dashboardApiService.getDoctorBookings({ limit: 10 });
+  //       if (response.success) {
+  //         setAppointments(response.data.bookings || []);
+  //       } else {
+  //         setError('Failed to fetch appointments');
+  //       }
+  //     } catch (err) {
+  //       setError(err.message);
+  //       console.error('Error fetching appointments:', err);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-    fetchAppointments();
-  }, []);
+  //   fetchAppointments();
+  // }, []);
 
   const handleStatusUpdate = async (bookingId, newStatus) => {
-    try {
-      await dashboardApiService.updateBookingStatus(bookingId, newStatus);
-      // Refresh appointments
-      const response = await dashboardApiService.getDoctorBookings({ limit: 10 });
-      if (response.success) {
-        setAppointments(response.data.bookings || []);
-      }
-    } catch (err) {
-      console.error('Error updating booking status:', err);
-      alert('Failed to update booking status');
-    }
+    // Static update for development - bypassing backend API calls
+    setAppointments(prev => prev.map(apt => 
+      apt.id === bookingId ? { ...apt, status: newStatus } : apt
+    ));
+    
+    // Commented out API call for development
+    // try {
+    //   await dashboardApiService.updateBookingStatus(bookingId, newStatus);
+    //   // Refresh appointments
+    //   const response = await dashboardApiService.getDoctorBookings({ limit: 10 });
+    //   if (response.success) {
+    //     setAppointments(response.data.bookings || []);
+    //   }
+    // } catch (err) {
+    //   console.error('Error updating booking status:', err);
+    //   alert('Failed to update booking status');
+    // }
   };
 
   const getStatusColor = (status) => {

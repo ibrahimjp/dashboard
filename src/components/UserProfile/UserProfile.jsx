@@ -21,21 +21,30 @@ const UserProfile = () => {
   };
 
   const handleSave = async () => {
-    try {
-      const response = await dashboardApiService.updateProfile(formData);
-      if (response.success) {
-        updateUser(response.data.user);
-        setIsEditing(false);
-      }
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      alert('Failed to update profile');
-    }
+    // Static update for development - bypassing backend API calls
+    updateUser({ ...user, ...formData });
+    setIsEditing(false);
+    
+    // Commented out API call for development
+    // try {
+    //   const response = await dashboardApiService.updateProfile(formData);
+    //   if (response.success) {
+    //     updateUser(response.data.user);
+    //     setIsEditing(false);
+    //   }
+    // } catch (error) {
+    //   console.error('Error updating profile:', error);
+    //   alert('Failed to update profile');
+    // }
   };
 
   const handleLogout = () => {
-    logout();
-    window.location.href = '/';
+    // For development, just reload the page since auth is bypassed
+    window.location.reload();
+    
+    // Commented out for development
+    // logout();
+    // window.location.href = '/';
   };
 
   const getRoleIcon = (role) => {

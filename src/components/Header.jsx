@@ -3,28 +3,35 @@ import dashboardApiService from '../services/dashboardApiService';
 import UserProfile from './UserProfile/UserProfile';
 
 const Header = () => {
-  const [user, setUser] = useState(null);
+  // Static user data for development - bypassing backend API calls
+  const [user, setUser] = useState({
+    id: 1,
+    name: 'Dr. John Smith',
+    email: 'dr.smith@hospital.com',
+    role: 'DOCTOR'
+  });
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userData = dashboardApiService.getCurrentUserFromStorage();
-        if (userData) {
-          setUser(userData);
-        } else {
-          // Try to fetch from API if not in storage
-          const response = await dashboardApiService.getCurrentUserProfile();
-          if (response.success) {
-            setUser(response.data.user);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
+  // Commented out API call for development
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const userData = dashboardApiService.getCurrentUserFromStorage();
+  //       if (userData) {
+  //         setUser(userData);
+  //       } else {
+  //         // Try to fetch from API if not in storage
+  //         const response = await dashboardApiService.getCurrentUserProfile();
+  //         if (response.success) {
+  //           setUser(response.data.user);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching user:', error);
+  //     }
+  //   };
 
-    fetchUser();
-  }, []);
+  //   fetchUser();
+  // }, []);
 
   return (
     <div className="flex-1 bg-dark-bg border-b border-light-black">

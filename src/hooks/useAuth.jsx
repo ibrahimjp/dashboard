@@ -12,39 +12,48 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // Static user data for development - bypassing backend authentication
+  const staticUser = {
+    id: 1,
+    name: 'Dr. John Smith',
+    email: 'dr.smith@hospital.com',
+    role: 'doctor',
+    specialty: 'Cardiology'
+  };
 
-  // Check if user is authenticated on app load
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        if (dashboardApiService.isAuthenticated()) {
-          const userData = dashboardApiService.getCurrentUserFromStorage();
-          if (userData) {
-            setUser(userData);
-            setIsAuthenticated(true);
-          } else {
-            // Try to fetch fresh user data
-            const response = await dashboardApiService.getCurrentUserProfile();
-            if (response.success) {
-              setUser(response.data.user);
-              setIsAuthenticated(true);
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Auth check failed:', error);
-        // Clear invalid token
-        dashboardApiService.logout();
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const [user, setUser] = useState(staticUser);
+  const [isLoading, setIsLoading] = useState(false); // Set to false to skip loading
+  const [isAuthenticated, setIsAuthenticated] = useState(true); // Always authenticated
 
-    checkAuth();
-  }, []);
+  // Commented out backend authentication check
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       if (dashboardApiService.isAuthenticated()) {
+  //         const userData = dashboardApiService.getCurrentUserFromStorage();
+  //         if (userData) {
+  //           setUser(userData);
+  //           setIsAuthenticated(true);
+  //         } else {
+  //           // Try to fetch fresh user data
+  //           const response = await dashboardApiService.getCurrentUserProfile();
+  //           if (response.success) {
+  //             setUser(response.data.user);
+  //             setIsAuthenticated(true);
+  //           }
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error('Auth check failed:', error);
+  //       // Clear invalid token
+  //       dashboardApiService.logout();
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   checkAuth();
+  // }, []);
 
   const login = async (credentials) => {
     try {
